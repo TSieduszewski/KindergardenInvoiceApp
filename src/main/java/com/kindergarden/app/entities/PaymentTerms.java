@@ -17,7 +17,7 @@ public abstract class PaymentTerms{
 
     @Id
     @GeneratedValue
-    private UUID idPaymentTerms;
+    private UUID id;
 
     protected int basicTuitionPrice;
 
@@ -25,9 +25,13 @@ public abstract class PaymentTerms{
 
     protected int mealCounter;
 
+//    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+//    @PrimaryKeyJoinColumn
+//    private CityGrant cityGrant;
+
     @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private CityGrant cityGrant;
+    private GrantFromLublinPack grantFromLublinPack;
 
     @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
@@ -35,7 +39,7 @@ public abstract class PaymentTerms{
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "id_payment_terms")
+    @JoinColumn(name = "id")
     private Parent parent;
 
     public void setBasicTuitionPrice(int basicTuitionPrice) {
@@ -44,10 +48,6 @@ public abstract class PaymentTerms{
 
     public void setParent(Parent parent) {
         this.parent = parent;
-    }
-
-    public void setCityGrant(CityGrant cityGrant) {
-        this.cityGrant = cityGrant;
     }
 
     public abstract void setBasicMealPrice(int basicMealPrice);

@@ -19,8 +19,7 @@ public class Parent {
 
     @Id
     @GeneratedValue
-    @Column(name="id_parent")
-    private UUID idParent;
+    private UUID id;
 
     private String firstName;
 

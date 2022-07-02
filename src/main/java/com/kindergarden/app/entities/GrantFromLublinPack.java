@@ -13,16 +13,16 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CityGrant {
+public class GrantFromLublinPack {
 
     @Id
     @GeneratedValue
-    private UUID idCityGrant;
-    private boolean grant;
+    private UUID id;
+
+    private boolean grantFromLublin;
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "id_city_grant")
+    @JoinColumn(name = "id")
     private PaymentTerms paymentTerms;
-
 }

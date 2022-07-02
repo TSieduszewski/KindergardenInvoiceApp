@@ -17,12 +17,12 @@ public class SpecialPack{
 
     @Id
     @GeneratedValue
-    private UUID idSpecialPack;
+    private UUID id;
 
     private boolean pack;
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "id_city_grant")
+    @JoinColumn(name = "id")
     private PaymentTerms paymentTerms;
 }
