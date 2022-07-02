@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -35,5 +36,7 @@ public class Parent {
     @PrimaryKeyJoinColumn
     private PaymentTerms paymentTerms;
 
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<Invoice> invoice;
 
 }

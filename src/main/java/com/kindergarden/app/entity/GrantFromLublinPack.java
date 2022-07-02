@@ -1,5 +1,6 @@
 package com.kindergarden.app.entity;
 
+import com.kindergarden.app.util.PaymentValues;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,8 @@ public class GrantFromLublinPack {
     private UUID id;
 
     private boolean grantFromLublin;
+
+    private int grantPrice = -PaymentValues.GRANT;
 
     @OneToOne
     @MapsId
