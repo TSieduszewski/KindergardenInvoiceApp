@@ -1,4 +1,4 @@
-package com.kindergarden.app.entities;
+package com.kindergarden.app.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,13 +13,13 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpecialPack{
+public class GrantFromLublinPack {
 
     @Id
     @GeneratedValue
     private UUID id;
 
-    private boolean pack;
+    private boolean grantFromLublin;
 
     @OneToOne
     @MapsId

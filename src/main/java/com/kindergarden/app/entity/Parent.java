@@ -1,4 +1,4 @@
-package com.kindergarden.app.entities;
+package com.kindergarden.app.entity;
 
 
 import lombok.AllArgsConstructor;

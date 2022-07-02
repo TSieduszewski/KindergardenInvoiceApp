@@ -1,6 +1,6 @@
-package com.kindergarden.app.entities;
+package com.kindergarden.app.entity;
 
-import com.kindergarden.app.prices.PaymentValues;
+import com.kindergarden.app.util.PaymentValues;
 
 public class PaymentTermsImpl extends PaymentTerms {
 

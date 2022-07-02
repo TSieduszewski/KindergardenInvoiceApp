@@ -1,4 +1,4 @@
-package com.kindergarden.app.prices;
+package com.kindergarden.app.util;
 
 public class PaymentValues {
 

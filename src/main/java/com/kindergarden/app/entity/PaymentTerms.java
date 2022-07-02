@@ -1,6 +1,6 @@
-package com.kindergarden.app.entities;
+package com.kindergarden.app.entity;
 
-import com.kindergarden.app.prices.PaymentValues;
+import com.kindergarden.app.util.PaymentValues;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
