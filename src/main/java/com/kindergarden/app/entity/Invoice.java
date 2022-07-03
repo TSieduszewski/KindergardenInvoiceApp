@@ -25,6 +25,12 @@ public class Invoice {
     //TODO create invoice number generator
     private String invoiceNumber;
 
+    private String clientName;
+
+    private String addressLine1;
+
+    private String addressLine2;
+
     private int dinnerCounter;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -41,4 +47,19 @@ public class Invoice {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Position> positions;
+
+
+    public void setClientName(String clientName) {
+
+        this.clientName = (getClientName()==null) ? parent.getFirstName() + " " + parent.getLastName() : getClientName();
+    }
+
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = (getAddressLine1()==null) ? parent.getAddressStreet() : getAddressLine1();
+    }
+
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = (getAddressLine2()==null) ? parent.getAddressPostalCode() + " " + parent.getAddressCity() : getAddressLine2();
+    }
+
 }
