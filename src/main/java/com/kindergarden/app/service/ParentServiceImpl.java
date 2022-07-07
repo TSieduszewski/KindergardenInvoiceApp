@@ -23,4 +23,9 @@ public class ParentServiceImpl implements ParentService {
         return parentRepository.findAll();
 
     }
+
+    @Override
+    public Parent save(Parent parent) {
+        return parentRepository.save(parent);
+    }
 }

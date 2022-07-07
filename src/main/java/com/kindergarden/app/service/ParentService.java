@@ -9,4 +9,6 @@ import java.util.List;
 public interface ParentService {
 
     List<Parent> findALlParents();
+
+    Parent save(Parent parent);
 }
