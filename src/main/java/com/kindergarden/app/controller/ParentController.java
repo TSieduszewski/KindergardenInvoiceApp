@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -32,6 +33,16 @@ public class ParentController {
             return ResponseEntity.ok(list);
         }
 
+    }
+
+    @GetMapping("/parent/{id}")
+    ResponseEntity<Parent> showParent(@PathVariable UUID id){
+        Parent tempParent = parentService.findParentById(id);
+        if(tempParent == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return ResponseEntity.ok(tempParent);
+        }
     }
 
     @PostMapping(value = "/parent/save", consumes = {"application/json"})

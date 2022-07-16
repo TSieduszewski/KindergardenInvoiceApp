@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ParentServiceImpl implements ParentService {
@@ -22,6 +24,18 @@ public class ParentServiceImpl implements ParentService {
     public List<Parent> findALlParents() {
 
         return parentRepository.findAll();
+
+    }
+
+    @Override
+    public Parent findParentById(UUID id) {
+        Optional<Parent> tempParent = parentRepository.findById(id);
+
+        if(tempParent.isPresent()){
+            return tempParent.get();
+        } else {
+            throw new RuntimeException("Nie znalazłem rodzica");
+        }
 
     }
 
