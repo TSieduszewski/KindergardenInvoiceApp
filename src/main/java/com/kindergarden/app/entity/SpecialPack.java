@@ -12,17 +12,15 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class SpecialPack{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_pack")
     private UUID id;
 
     private boolean pack;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+    @OneToOne(mappedBy = "specialPack")
     private PaymentTerms paymentTerms;
 }

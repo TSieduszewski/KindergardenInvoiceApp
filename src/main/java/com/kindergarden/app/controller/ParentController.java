@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class ParentController {
 
     //TODO do the validation on entity and resolve al exceptions
     @PostMapping(value = "/parent/save", consumes = {"application/json"})
-    ResponseEntity<Parent> saveParentToDatabase(@RequestBody Parent parent){
+    ResponseEntity<Parent> saveParentToDatabase(@RequestBody @Valid Parent parent){
 
         Parent newParent = parentService.save(parent);
 

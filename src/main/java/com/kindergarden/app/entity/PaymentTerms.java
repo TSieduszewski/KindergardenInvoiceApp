@@ -1,22 +1,28 @@
 package com.kindergarden.app.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.kindergarden.app.util.PaymentValues;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Entity
+@Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class PaymentTerms{
+@JsonDeserialize(as = PaymentTermsImpl.class)
+public abstract class PaymentTerms {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_terms")
     private UUID id;
 
     protected int basicTuitionPrice;
@@ -33,13 +39,16 @@ public abstract class PaymentTerms{
     @PrimaryKeyJoinColumn
     private GrantFromLublinPack grantFromLublinPack;
 
-    @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private SpecialPack specialPack;
+    //    @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
+//    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pack_id", referencedColumnName = "id_pack")
+    private SpecialPack specialPack = new SpecialPack();
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+    //    @OneToOne
+//    @MapsId
+//    @JoinColumn(name = "parent_id")
+    @OneToOne(mappedBy = "paymentTerms")
     private Parent parent;
 
     public void setBasicTuitionPrice(int basicTuitionPrice) {
@@ -48,6 +57,10 @@ public abstract class PaymentTerms{
 
     public void setParent(Parent parent) {
         this.parent = parent;
+    }
+
+    public void setSpecialPack(SpecialPack specialPack) {
+        this.specialPack = specialPack;
     }
 
     public abstract void setBasicMealPrice(int basicMealPrice);
