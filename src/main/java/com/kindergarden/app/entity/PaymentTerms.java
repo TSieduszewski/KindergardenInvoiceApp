@@ -1,5 +1,6 @@
 package com.kindergarden.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.kindergarden.app.util.PaymentValues;
 import lombok.AllArgsConstructor;
@@ -11,19 +12,15 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
-@Getter
-@NoArgsConstructor
-//@AllArgsConstructor
 @Entity
+@Getter
 @Setter
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@JsonDeserialize(as = PaymentTermsImpl.class)
-public abstract class PaymentTerms {
+public class PaymentTerms {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_terms")
-    private UUID id;
+    @Column(name = "id")
+    private int id;
 
     protected int basicTuitionPrice;
 
@@ -31,40 +28,37 @@ public abstract class PaymentTerms {
 
     protected int mealCounter;
 
-//    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private CityGrant cityGrant;
-
-    @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private GrantFromLublinPack grantFromLublinPack;
 
     //    @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
 //    @PrimaryKeyJoinColumn
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pack_id", referencedColumnName = "id_pack")
-    private SpecialPack specialPack = new SpecialPack();
+//    private GrantFromLublinPack grantFromLublinPack;
+//
+//    @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
+//    @PrimaryKeyJoinColumn
+//    private SpecialPack specialPack = new SpecialPack();
 
-    //    @OneToOne
-//    @MapsId
-//    @JoinColumn(name = "parent_id")
     @OneToOne(mappedBy = "paymentTerms")
+    @JsonIgnore
     private Parent parent;
 
-    public void setBasicTuitionPrice(int basicTuitionPrice) {
-        this.basicTuitionPrice = PaymentValues.TUITION;
-    }
-
-    public void setParent(Parent parent) {
-        this.parent = parent;
-    }
-
-    public void setSpecialPack(SpecialPack specialPack) {
-        this.specialPack = specialPack;
-    }
-
-    public abstract void setBasicMealPrice(int basicMealPrice);
-
-    public abstract void setMealCounter(int mealCounter);
+//    public void setBasicTuitionPrice(int basicTuitionPrice) {
+//        this.basicTuitionPrice = PaymentValues.TUITION;
+//    }
+//
+//    public void setBasicMealPrice(int basicMealPrice) {
+//        if (getSpecialPack().isPack()) {
+//            this.basicMealPrice = PaymentValues.PACK;
+//        } else {
+//            this.basicMealPrice = PaymentValues.MEAL;
+//        }
+//    }
+//
+//    public void setMealCounter(int mealCounter) {
+//        if (getSpecialPack().isPack()) {
+//            this.mealCounter = 1;
+//        } else {
+//            this.mealCounter = mealCounter;
+//        }
+//    }
 
 }

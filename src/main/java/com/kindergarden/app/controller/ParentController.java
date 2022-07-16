@@ -25,6 +25,8 @@ public class ParentController {
     @GetMapping("/parent")
     ResponseEntity<List<Parent>> showAllParents(){
         List<Parent> list = parentService.findALlParents();
+        System.out.println(list.size());
+
         if(list == null | list.size()<=0){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -38,7 +40,6 @@ public class ParentController {
     ResponseEntity<Parent> saveParentToDatabase(@RequestBody @Valid Parent parent){
 
         Parent newParent = parentService.save(parent);
-
         return ResponseEntity.created(URI.create("/" + newParent.getId())).body(newParent);
     }
 }
