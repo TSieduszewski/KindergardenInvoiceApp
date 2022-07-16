@@ -27,7 +27,7 @@ public class Parent {
 
     @NotNull(message = "Pole nie może być puste, lub go brakować")
     @NotBlank(message = "Pole nie może być puste, lub go brakować")
-    @Min(value = 2, message = "Pole musi zawierać minimum 2 znaki")
+    @Size(min=2, max=40, message = "Imię musi zawierać 2-40 znaków")
     private String lastName;
 
     @NotNull(message = "Pole nie może być puste, lub go brakować")

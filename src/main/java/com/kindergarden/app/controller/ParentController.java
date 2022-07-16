@@ -51,4 +51,17 @@ public class ParentController {
         Parent newParent = parentService.save(parent);
         return ResponseEntity.created(URI.create("/" + newParent.getId())).body(newParent);
     }
+
+    @DeleteMapping("/parent/delete/{id}")
+    ResponseEntity<?> deleteParentFromDatabase(@PathVariable UUID id){
+
+        Parent tempParent = parentService.findParentById(id);
+        if(tempParent == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            parentService.delete(id);
+            return ResponseEntity.ok(tempParent);
+        }
+
+    }
 }

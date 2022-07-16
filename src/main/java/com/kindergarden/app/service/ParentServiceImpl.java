@@ -3,6 +3,8 @@ package com.kindergarden.app.service;
 import com.kindergarden.app.dao.ParentRepository;
 import com.kindergarden.app.entity.Parent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,16 +33,18 @@ public class ParentServiceImpl implements ParentService {
     public Parent findParentById(UUID id) {
         Optional<Parent> tempParent = parentRepository.findById(id);
 
-        if(tempParent.isPresent()){
-            return tempParent.get();
-        } else {
-            throw new RuntimeException("Nie znalazłem rodzica");
-        }
+        return tempParent.orElse(null);
 
     }
 
     @Override
     public Parent save(Parent parent) {
+
         return parentRepository.save(parent);
+    }
+
+    @Override
+    public void delete(UUID id){
+        parentRepository.deleteById(id);
     }
 }

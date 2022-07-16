@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
@@ -19,13 +20,13 @@ public class PaymentTerms {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Pattern(regexp = "\\d{1,4}", message = "tylko liczby 1-9999")
+    @Digits(message = "Tylko liczby", integer = 4, fraction = 0)
     private int basicTuitionPrice;
 
-    @Pattern(regexp = "\\d{1,4}", message = "tylko liczby 1-9999")
+    @Digits(message = "Tylko liczby", integer = 4, fraction = 0)
     private int basicMealPrice;
 
-    @Pattern(regexp = "\\d{1,2}", message = "tylko liczby 1-99")
+    @Digits(message = "Tylko liczby", integer = 2, fraction = 0)
     private int mealCounter;
 
 
