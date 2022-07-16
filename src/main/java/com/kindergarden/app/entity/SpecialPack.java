@@ -19,7 +19,7 @@ public class SpecialPack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private int id;
 
     private boolean pack;
 

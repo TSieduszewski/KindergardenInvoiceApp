@@ -11,6 +11,8 @@ import lombok.Setter;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -22,18 +24,22 @@ public class PaymentTerms {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private UUID id;
+    private int id;
 
-    protected int basicTuitionPrice;
+//    @Pattern(regexp = "[0-9]{1,4}", message = "tylko liczby 1-9999")
+    private int basicTuitionPrice;
 
-    protected int basicMealPrice;
+//    @Pattern(regexp = "[0-9]{1,4}", message = "tylko liczby 1-9999")
+    private int basicMealPrice;
 
-    protected int mealCounter;
+//    @Pattern(regexp = "[0-9]{1,2}", message = "tylko liczby 1-99")
+    private int mealCounter;
 
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "grant_id", referencedColumnName = "id")
     private GrantFromLublinPack grantFromLublinPack;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pack_id", referencedColumnName = "id")
