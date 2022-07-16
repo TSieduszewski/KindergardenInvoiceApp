@@ -33,18 +33,22 @@ public class PaymentTerms {
     @JoinColumn(name = "grant_id", referencedColumnName = "id")
     private GrantFromLublinPack grantFromLublinPack;
 
-//    @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private SpecialPack specialPack = new SpecialPack();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pack_id", referencedColumnName = "id")
+    private SpecialPack specialPack;
 
     @OneToOne(mappedBy = "paymentTerms")
     @JsonIgnore
     private Parent parent;
 
-//    public void setBasicTuitionPrice(int basicTuitionPrice) {
-//        this.basicTuitionPrice = PaymentValues.TUITION;
-//    }
-//
+    public PaymentTerms() {
+        this.basicTuitionPrice = PaymentValues.TUITION;
+    }
+
+    public void setBasicTuitionPrice(int basicTuitionPrice) {
+        this.basicTuitionPrice = PaymentValues.TUITION;
+    }
+
 //    public void setBasicMealPrice(int basicMealPrice) {
 //        if (getSpecialPack().isPack()) {
 //            this.basicMealPrice = PaymentValues.PACK;
