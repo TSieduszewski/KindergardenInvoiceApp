@@ -29,10 +29,10 @@ public class PaymentTerms {
     protected int mealCounter;
 
 
-    //    @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private GrantFromLublinPack grantFromLublinPack;
-//
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "grant_id", referencedColumnName = "id")
+    private GrantFromLublinPack grantFromLublinPack;
+
 //    @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
 //    @PrimaryKeyJoinColumn
 //    private SpecialPack specialPack = new SpecialPack();
