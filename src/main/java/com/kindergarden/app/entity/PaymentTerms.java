@@ -23,8 +23,8 @@ public class PaymentTerms {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
 //    @Pattern(regexp = "[0-9]{1,4}", message = "tylko liczby 1-9999")
     private int basicTuitionPrice;

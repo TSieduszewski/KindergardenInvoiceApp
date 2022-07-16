@@ -7,5 +7,5 @@ import java.util.UUID;
 
 public interface ParentRepository extends JpaRepository<Parent, UUID> {
 
-    Parent findById(int id);
+    //Parent findById(UUID id);
 }

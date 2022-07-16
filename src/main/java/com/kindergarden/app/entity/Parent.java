@@ -17,7 +17,8 @@ public class Parent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
 //    @NotNull(message = "Pole nie może być puste, lub go brakować")
 //    @NotBlank(message = "Pole nie może być puste, lub go brakować")

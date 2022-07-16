@@ -19,7 +19,8 @@ public class SpecialPack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
     private boolean pack;
 

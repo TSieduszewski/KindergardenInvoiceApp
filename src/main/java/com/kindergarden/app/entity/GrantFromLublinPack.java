@@ -13,8 +13,8 @@ public class GrantFromLublinPack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "id", columnDefinition = "BINARY(16)")
+    private UUID id;
 
     private boolean grantFromLublin;
 
