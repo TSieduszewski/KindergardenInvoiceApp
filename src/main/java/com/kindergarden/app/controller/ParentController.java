@@ -25,7 +25,6 @@ public class ParentController {
     @GetMapping("/parent")
     ResponseEntity<List<Parent>> showAllParents(){
         List<Parent> list = parentService.findALlParents();
-        System.out.println(list.size());
 
         if(list == null | list.size()<=0){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -35,7 +34,6 @@ public class ParentController {
 
     }
 
-    //TODO do the validation on entity and resolve al exceptions
     @PostMapping(value = "/parent/save", consumes = {"application/json"})
     ResponseEntity<Parent> saveParentToDatabase(@RequestBody @Valid Parent parent){
 

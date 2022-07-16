@@ -1,15 +1,11 @@
 package com.kindergarden.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kindergarden.app.util.PaymentValues;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -22,6 +18,7 @@ public class SpecialPack {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
+    @NotNull
     private boolean pack;
 
     @OneToOne(mappedBy = "specialPack")

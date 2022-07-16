@@ -1,19 +1,12 @@
 package com.kindergarden.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.kindergarden.app.util.PaymentValues;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -26,13 +19,13 @@ public class PaymentTerms {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-//    @Pattern(regexp = "[0-9]{1,4}", message = "tylko liczby 1-9999")
+    @Pattern(regexp = "\\d{1,4}", message = "tylko liczby 1-9999")
     private int basicTuitionPrice;
 
-//    @Pattern(regexp = "[0-9]{1,4}", message = "tylko liczby 1-9999")
+    @Pattern(regexp = "\\d{1,4}", message = "tylko liczby 1-9999")
     private int basicMealPrice;
 
-//    @Pattern(regexp = "[0-9]{1,2}", message = "tylko liczby 1-99")
+    @Pattern(regexp = "\\d{1,2}", message = "tylko liczby 1-99")
     private int mealCounter;
 
 
