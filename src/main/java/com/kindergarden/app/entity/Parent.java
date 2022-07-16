@@ -16,7 +16,7 @@ public class Parent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private UUID id;
 
     private String firstName;
 

@@ -14,7 +14,7 @@ public class GrantFromLublinPack {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private UUID id;
 
     private boolean grantFromLublin;
 

@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,7 +22,7 @@ public class PaymentTerms {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private UUID id;
 
     protected int basicTuitionPrice;
 
@@ -49,20 +51,23 @@ public class PaymentTerms {
         this.basicTuitionPrice = PaymentValues.TUITION;
     }
 
-//    public void setBasicMealPrice(int basicMealPrice) {
-//        if (getSpecialPack().isPack()) {
-//            this.basicMealPrice = PaymentValues.PACK;
-//        } else {
-//            this.basicMealPrice = PaymentValues.MEAL;
-//        }
-//    }
-//
-//    public void setMealCounter(int mealCounter) {
-//        if (getSpecialPack().isPack()) {
-//            this.mealCounter = 1;
-//        } else {
-//            this.mealCounter = mealCounter;
-//        }
-//    }
+    public void setBasicMealPrice(int basicMealPrice) {
+        this.basicMealPrice = basicMealPrice;
+    }
 
+    public void setMealCounter(int mealCounter) {
+        this.mealCounter = mealCounter;
+    }
+
+    @PrePersist
+    private void calculateBasicMealPrice() {
+        if (specialPack.isPack()) {
+            setBasicMealPrice(PaymentValues.PACK);
+            setMealCounter(1);
+        } else {
+            if(basicMealPrice==0) {
+                setBasicMealPrice(PaymentValues.MEAL);
+            }
+        }
+    }
 }
