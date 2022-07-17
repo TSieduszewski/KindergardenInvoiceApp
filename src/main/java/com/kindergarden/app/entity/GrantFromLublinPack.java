@@ -1,31 +1,37 @@
 package com.kindergarden.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kindergarden.app.util.PaymentValues;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class GrantFromLublinPack {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
 
     private boolean grantFromLublin;
 
-    private int grantPrice = -PaymentValues.GRANT;
+    private int grantPrice;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+    @OneToOne(mappedBy = "grantFromLublinPack")
+    @JsonIgnore
     private PaymentTerms paymentTerms;
+
+    public void setGrantFromLublin(boolean grantFromLublin) {
+        this.grantFromLublin = grantFromLublin;
+        //zero number don't have any meaining - it requires for method start, because we want to set grant automaticly.
+        //in setGrantPrice method we use boolean test to set values: 400 or 0. No other values are option.
+        setGrantPrice(0);
+    }
+
+    public void setGrantPrice(int grantPrice) {
+        this.grantPrice = isGrantFromLublin() ? -PaymentValues.GRANT : 0;
+    }
 }

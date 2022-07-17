@@ -1,57 +1,73 @@
 package com.kindergarden.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kindergarden.app.util.PaymentValues;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class PaymentTerms{
+@Getter
+@Setter
+public class PaymentTerms {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    protected int basicTuitionPrice;
+    @Digits(message = "Tylko liczby", integer = 4, fraction = 0)
+    private int basicTuitionPrice;
 
-    protected int basicMealPrice;
+    @Digits(message = "Tylko liczby", integer = 4, fraction = 0)
+    private int basicMealPrice;
 
-    protected int mealCounter;
+    @Digits(message = "Tylko liczby", integer = 2, fraction = 0)
+    private int mealCounter;
 
-//    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private CityGrant cityGrant;
 
-    @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "grant_id", referencedColumnName = "id")
     private GrantFromLublinPack grantFromLublinPack;
 
-    @OneToOne(mappedBy = "paymentTerms", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pack_id", referencedColumnName = "id")
     private SpecialPack specialPack;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+    @OneToOne(mappedBy = "paymentTerms")
+    @JsonIgnore
     private Parent parent;
+
+    public PaymentTerms() {
+        this.basicTuitionPrice = PaymentValues.TUITION;
+    }
 
     public void setBasicTuitionPrice(int basicTuitionPrice) {
         this.basicTuitionPrice = PaymentValues.TUITION;
     }
 
-    public void setParent(Parent parent) {
-        this.parent = parent;
+    public void setBasicMealPrice(int basicMealPrice) {
+        this.basicMealPrice = basicMealPrice;
     }
 
-    public abstract void setBasicMealPrice(int basicMealPrice);
+    public void setMealCounter(int mealCounter) {
+        this.mealCounter = mealCounter;
+    }
 
-    public abstract void setMealCounter(int mealCounter);
-
+    @PrePersist
+    private void calculateBasicMealPrice() {
+        if (specialPack.isPack()) {
+            setBasicMealPrice(PaymentValues.PACK);
+            setMealCounter(1);
+        } else {
+            if(basicMealPrice==0) {
+                setBasicMealPrice(PaymentValues.MEAL);
+            }
+        }
+    }
 }
